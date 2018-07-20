@@ -72,4 +72,6 @@
 
 如果使用 IntelliJ IDEA 無 Tomcat 功能，則可用 Maven 方式附掛 Tomcat 執行
 
+並且手動撰寫 maven 說明檔 : [pom.xml](pom.xml)
+
 ![](doc/Maven-Server.png)
