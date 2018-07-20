@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>tw.noah</groupId>
+  <artifactId>traditional-tomcat-project</artifactId>
+  <version>0.0.1</version>
+
+  <packaging>war</packaging>
+
+  <properties>
+    <encoding>UTF-8</encoding>
+    <jdk>1.8</jdk>
+
+    <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    <project.build.outputEncoding>${encoding}</project.build.outputEncoding>
+    <maven.compiler.source>${jdk}</maven.compiler.source>
+    <maven.compiler.target>${jdk}</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <!-- become a tomcat project -->
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-servlet-api</artifactId>
+      <version>8.0.52</version>
+    </dependency>
+
+    <!-- The jar of yourself in tomcat/lib , we need to add it manual, the maven compiler is used to. -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.44</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <finalName>ROOT</finalName>
+
+    <plugins>
+      <!-- java compiler -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${jdk}</source>
+          <target>${jdk}</target>
+          <encoding>${encoding}</encoding>
+          <compilerArguments>
+            <verbose/>
+            <extdirs>WebContent/WEB-INF/lib</extdirs>
+          </compilerArguments>
+        </configuration>
+      </plugin>
+
+      <!-- package to war -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.1</version>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>WebContent</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+
+      <!-- run tomcat : mvn tomcat7:run-war -->
+      <!--
+      doc : http://tomcat.apache.org/maven-plugin-2.2/tomcat7-maven-plugin/run-mojo.html
+      http://tomcat.apache.org/maven-plugin-2.2/tomcat7-maven-plugin/run-war-mojo.html
+      -->
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <charset>${encoding}</charset>
+          <path>/</path>
+          <port>8080</port>
+          <contextFile>${basedir}/WebContent/META-INF/context.xml</contextFile>
+          <systemProperties>
+            <JAVA_OPTS>-Xms256m -Xmx512m -XX:MaxPermSize=256m -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=y</JAVA_OPTS>
+          </systemProperties>
+        </configuration>
+        <!-- 此方式為載入標準 maven 專案
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.44</version>
+          </dependency>
+        </dependencies>
+        -->
+      </plugin>
+
+    </plugins>
+  </build>
+
+
+</project>

@@ -4,6 +4,9 @@
 /bin/
 !gradle/wrapper/gradle-wrapper.jar
 
+/target/
+/WebContent/WEB-INF/classes/
+
 ### STS ###
 .apt_generated
 .classpath
