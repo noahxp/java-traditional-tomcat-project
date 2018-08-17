@@ -43,7 +43,7 @@
 
 ![](doc/ProjectSetting-Module-ClassesPath.png)
 
-4.設定相關Java LIB(*.jar)，如 專案下的(WEB-INF/lib)、tomcat lib，及自己手動放進 tomcat/lib 下的
+4.設定相關Java LIB(*.jar)，如 專案下的(WEB-INF/lib)、tomcat lib，及自己手動放進 tomcat/lib 下的。自己手動放進 tomcat/lib 下的 library, 需調整 scope 為 `Provided`
 
 ![](doc/ProjectSetting-Module-Dependencies.png)
 
